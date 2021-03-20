@@ -10,7 +10,8 @@ namespace Urho3DMaterialEditor.Model
         private bool _animatedModel;
         private Animation _animation;
 
-        private LightType _lightType;
+        private LightType _lightType = LightType.Spot;
+        private ShadowQuality _shadowQuality = ShadowQuality.PcfN24Bit;
         private Urho.Model _model;
         private Scene _scene;
         private bool isRotate = true;
@@ -269,8 +270,12 @@ namespace Urho3DMaterialEditor.Model
         private void SetupViewport(string renderPath = null)
         {
             var renderer = Renderer;
+            renderer.ShadowQuality = _shadowQuality;
             var rp = new RenderPath();
             rp.Load(ResourceCache.GetXmlFile(renderPath ?? "RenderPaths/Forward.xml"));
+            rp.Append(ResourceCache.GetXmlFile("PostProcess/Bloom.xml"));
+            rp.Append(ResourceCache.GetXmlFile("PostProcess/FXAA2.xml"));
+            rp.SetShaderParameter("BloomMix", new Vector2(0.9f, 0.6f));
             renderer.SetViewport(0, new Viewport(Context, _scene, CameraNode.GetComponent<Camera>(), rp));
         }
 
@@ -303,7 +308,7 @@ namespace Urho3DMaterialEditor.Model
 
         public void SetShadowQuality(ShadowQuality shadowQuality)
         {
-            InvokeOnMain(() => { Renderer.ShadowQuality = shadowQuality; });
+            InvokeOnMain(() => { Renderer.ShadowQuality = _shadowQuality = shadowQuality; });
         }
 
         public void OpenScene(string file)

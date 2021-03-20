@@ -105,12 +105,6 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
-    <Reference Include="Toe.Scripting, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Toe.Scripting.0.1.0\lib\netstandard2.0\Toe.Scripting.dll</HintPath>
-    </Reference>
-    <Reference Include="Toe.Scripting.WPF, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Toe.Scripting.WPF.0.1.0\lib\net461\Toe.Scripting.WPF.dll</HintPath>
-    </Reference>
     <Reference Include="Urho, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\UrhoSharp.1.8.93\lib\net45\Urho.dll</HintPath>
     </Reference>
@@ -169,11 +163,15 @@
     <Compile Include="Model\Templates\IT4Writer.cs" />
     <Compile Include="Model\TranslationPasses\ElimitateDuplicates.cs" />
     <Compile Include="Model\TranslationPasses\ElimitateKnownDefines.cs" />
+    <Compile Include="Model\TranslationPasses\EnsureInfo.cs" />
+    <Compile Include="Model\TranslationPasses\EstimateCalculationCost.cs" />
     <Compile Include="Model\TranslationPasses\IfDefReference.cs" />
     <Compile Include="Model\TranslationPasses\IfDefSet.cs" />
     <Compile Include="Model\TranslationPasses\InlineFunctions.cs" />
     <Compile Include="Model\TranslationPasses\InsertDefaultValues.cs" />
+    <Compile Include="Model\TranslationPasses\InsertVaryings.cs" />
     <Compile Include="Model\TranslationPasses\PaintDefines.cs" />
+    <Compile Include="Model\TranslationPasses\PaintGraph.cs" />
     <Compile Include="Model\TranslationPasses\PreviewPinOutput.cs" />
     <Compile Include="Model\UniformsAndFunctions.cs" />
     <Compile Include="Model\VertexDataNodeFactory.cs" />
@@ -467,14 +465,26 @@
     <EmbeddedResource Include="Data\GraphFunctions\Functions\Splines\bernsteinPolynomial%28float,vec2%29.json" />
     <EmbeddedResource Include="Data\GraphFunctions\Functions\Splines\bernsteinPolynomial%28float,vec3%29.json" />
     <EmbeddedResource Include="Data\GraphFunctions\Functions\Splines\bernsteinPolynomial%28float,vec4%29.json" />
-    <EmbeddedResource Include="Data\GraphFunctions\Functions\Math\1-float.json" />
-    <EmbeddedResource Include="Data\GraphFunctions\Functions\Math\1-vec2.json" />
-    <EmbeddedResource Include="Data\GraphFunctions\Functions\Math\1-vec3.json" />
-    <EmbeddedResource Include="Data\GraphFunctions\Functions\Math\1-vec4.json" />
+    <EmbeddedResource Include="Data\GraphFunctions\Functions\Arithmetic\1-float.json" />
+    <EmbeddedResource Include="Data\GraphFunctions\Functions\Arithmetic\1-vec2.json" />
+    <EmbeddedResource Include="Data\GraphFunctions\Functions\Arithmetic\1-vec3.json" />
+    <EmbeddedResource Include="Data\GraphFunctions\Functions\Arithmetic\1-vec4.json" />
     <EmbeddedResource Include="Data\GraphFunctions\Functions\Transform\panner.json" />
-    <EmbeddedResource Include="Data\GraphFunctions\Functions\Math\random%28vec2%29.json" />
+    <EmbeddedResource Include="Data\GraphFunctions\Functions\Arithmetic\random%28vec2%29.json" />
     <EmbeddedResource Include="Data\GraphFunctions\Functions\Splines\cubicBell.json" />
     <EmbeddedResource Include="Data\GraphFunctions\Functions\Splines\quinticBell.json" />
+    <EmbeddedResource Include="Data\GraphFunctions\Functions\Transform\getReflectionColorWithBiasAt.json" />
+    <EmbeddedResource Include="Data\GraphFunctions\Functions\Lighting\getAtten%28vec3,vec3%29.json" />
+    <EmbeddedResource Include="Data\GraphFunctions\Functions\Lighting\toCamera%28vec3%29.json" />
+    <EmbeddedResource Include="Data\GraphFunctions\Functions\Lighting\burleyDiffuse%28vec3,float,float,float,float%29.json" />
+    <EmbeddedResource Include="Data\GraphFunctions\Functions\Lighting\customLambertianDiffuse%28vec3,float,float%29.json" />
+    <EmbeddedResource Include="Data\GraphFunctions\Functions\Lighting\getBRDF.json" />
+    <EmbeddedResource Include="Data\GraphFunctions\Functions\Lighting\fresnel%28vec3,float,float%29.json" />
+    <EmbeddedResource Include="Data\GraphFunctions\Functions\Lighting\neumannVisibility%28float,float%29.json" />
+    <EmbeddedResource Include="Data\GraphFunctions\Functions\Lighting\visibility%28float,float,float%29.json" />
+    <EmbeddedResource Include="Data\GraphFunctions\Functions\Lighting\smithGGXSchlickVisibility%28float,float,float%29.json" />
+    <EmbeddedResource Include="Data\GraphFunctions\Functions\texture2D\sampleTexture2D.json" />
+    <EmbeddedResource Include="Data\GraphFunctions\Functions\Lighting\scaleNormal.json" />
     <None Include="Data\MaterialGraphs\Butterflies.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -530,7 +540,16 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\submodules\Toe.Scripting.Core\src\Toe.Scripting.WPF\Toe.Scripting.WPF.csproj">
+      <Project>{1581dffb-1cc1-40b3-88d2-aa56d475200c}</Project>
+      <Name>Toe.Scripting.WPF</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\submodules\Toe.Scripting.Core\src\Toe.Scripting\Toe.Scripting.Core.csproj">
+      <Project>{2af30c5f-3922-4475-8087-7bd2dfd5bc21}</Project>
+      <Name>Toe.Scripting.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\UrhoSharp.1.8.93\build\net45\UrhoSharp.targets" Condition="Exists('..\packages\UrhoSharp.1.8.93\build\net45\UrhoSharp.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

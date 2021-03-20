@@ -215,6 +215,7 @@ namespace Urho3DMaterialEditor.Model
         public const string DotVec4Vec4 = "dot(vec4,vec4)"; //float dot(vec4 x, vec4 y)
         public const string MultiplyFloatFloat = "float*float";
         public const string MultiplyVec2Vec2 = "vec2*vec2";
+        public const string MultiplyVec2Mat2 = "vec2*mat2";
         public const string MultiplyVec3Vec3 = "vec3*vec3";
         public const string MultiplyVec4Vec4 = "vec4*vec4";
         public const string MultiplyVec4Mat4 = "vec4*mat4";
@@ -243,10 +244,14 @@ namespace Urho3DMaterialEditor.Model
         public const string SubtractVec2Vec2 = "vec2-vec2";
         public const string SubtractVec3Vec3 = "vec3-vec3";
         public const string SubtractVec4Vec4 = "vec4-vec4";
-        public const string MinusFloatFloat = "-float";
-        public const string MinusVec2Vec2 = "-vec2";
-        public const string MinusVec3Vec3 = "-vec3";
-        public const string MinusVec4Vec4 = "-vec4";
+        public const string MinusFloat = "-float";
+        public const string MinusVec2 = "-vec2";
+        public const string MinusVec3 = "-vec3";
+        public const string MinusVec4 = "-vec4";
+        public const string SaturateFloat = "saturate(float)";
+        public const string SaturateVec2 = "saturate(vec2)";
+        public const string SaturateVec3 = "saturate(vec3)";
+        public const string SaturateVec4 = "saturate(vec4)";
         public const string CrossVec3Vec3 = "cross(vec3,vec3)"; //vec3 cross(vec3 x, vec3 y)
         public const string NormalizeFloat = "normalize(float)"; //float normalize(float x)
         public const string NormalizeVec2 = "normalize(vec2)"; //vec2 normalize(vec2 x)
@@ -388,6 +393,7 @@ namespace Urho3DMaterialEditor.Model
         public const string MakeVec2 = "makeVec2"; //
         public const string MakeVec3 = "makeVec3"; //
         public const string MakeVec4 = "makeVec4"; //
+        public const string MakeMat2 = "makeMat2"; //
         public const string MakeVec4FromVec3 = "makeVec4fromVec3"; //
         public const string MakeVec4FromVec3AndFloat = "makeVec4fromVec3Float"; //
         public const string MakeVec3FromVec2AndFloat = "makeVec3fromVec2Float"; //

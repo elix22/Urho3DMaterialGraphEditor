@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Urho3DMaterialEditor.Model.DefineTree;
 
 namespace Urho3DMaterialEditor.Model.Templates
 {
@@ -33,13 +34,11 @@ namespace Urho3DMaterialEditor.Model.Templates
             Graph = graph;
             VertexShaderGenerator = new GLSLCodeGen(this);
             VertexShaderUniformsAndFunctions = new UniformsAndFunctions(
-                graph.Script.Nodes.Where(_ =>
-                    _.Extra?.Attribution == TranslatedMaterialGraph.NodeAttribution.VertexShader),
+                graph.Script.Nodes.Where(_ => _.Extra != null && !_.Extra.RequiredInPixelShader),
                 graph.VertexShaderUniforms, VertexShaderGenerator);
             PixelShaderGenerator = new GLSLCodeGen(this);
             PixelShaderUniformsAndFunctions = new UniformsAndFunctions(
-                graph.Script.Nodes.Where(_ =>
-                    _.Extra?.Attribution == TranslatedMaterialGraph.NodeAttribution.PixelShader),
+                graph.Script.Nodes.Where(_ => _.Extra != null && _.Extra.RequiredInPixelShader),
                 graph.PixelShaderUniforms, PixelShaderGenerator);
         }
 
@@ -50,7 +49,19 @@ namespace Urho3DMaterialEditor.Model.Templates
 
         public void WriteLine(string ifdef, string line)
         {
-            if (string.IsNullOrWhiteSpace(ifdef)) ifdef = null;
+            if (ifdef == BinaryTree.FalseConst)
+            {
+                return;
+            }
+            else if (ifdef == BinaryTree.TrueConst)
+            {
+                ifdef = null;
+            }
+            else if (string.IsNullOrWhiteSpace(ifdef))
+            {
+                ifdef = null;
+            }
+
             if (ifdef != _currentIfDef)
             {
                 if (_currentIfDef != null)
@@ -97,6 +108,19 @@ namespace Urho3DMaterialEditor.Model.Templates
 
         public void WriteLine(string ifdef, string line)
         {
+            if (ifdef == BinaryTree.FalseConst)
+            {
+                return;
+            }
+            else if (ifdef == BinaryTree.TrueConst)
+            {
+                ifdef = null;
+            }
+            else if (string.IsNullOrWhiteSpace(ifdef))
+            {
+                ifdef = null;
+            }
+
             if (ifdef != _currentIfDef)
             {
                 if (_currentIfDef != null)

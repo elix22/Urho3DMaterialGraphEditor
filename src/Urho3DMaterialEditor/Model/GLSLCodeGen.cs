@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using ReactiveUI;
 using Toe.Scripting.Helpers;
 using Urho3DMaterialEditor.Model.Templates;
 
@@ -174,7 +175,7 @@ mat3 GetNormalMatrix(mat4 modelMatrix)
                 var def = node.Extra.Define;
                 _writer.WriteLine(def.IsAlways ? null : def.Expression,
                     "// based on node " + connectedNode.Name + " " + node.Value + " (type:" + connectedNode.Type +
-                    ", id:" + connectedNode.Id + ")");
+                    ", id:" + connectedNode.Id + "), cost estimation: "+node.Extra.EstimatedCost);
                 _writer.WriteLine(def.IsAlways ? null : def.Expression,
                     actualType + " " + node.Name + " = " + arg + ";");
             }
@@ -270,8 +271,15 @@ mat3 GetNormalMatrix(mat4 modelMatrix)
                     var varyingType = GetVaryingType(node.InputPins[0].Type);
                     if (actualType != varyingType)
                         arg = varyingType + "(" + arg + ")";
+                    var connectedNode = node.InputPins[0].ConnectedPins.FirstOrDefault()?.Node;
+                    if (connectedNode != null)
+                    {
+                        _writer.WriteLine(null,
+                            "// based on node " + connectedNode.Name + " " + connectedNode.Value + " (type:" + connectedNode.Type +
+                            ", id:" + connectedNode.Id + "), cost estimation: " + connectedNode.Extra.EstimatedCost);
+                    }
 
-                    _writer.WriteLine(null, "v" + node.Value + " = " + arg + ";");
+                    _writer.WriteLine(node.Extra.Define.Expression , "v" + node.Value + " = " + arg + ";");
                 }
                     return null;
                 case NodeTypes.Discard:
@@ -306,6 +314,7 @@ mat3 GetNormalMatrix(mat4 modelMatrix)
                 case NodeTypes.MultiplyVec3Float:
                 case NodeTypes.MultiplyVec4Float:
                 case NodeTypes.MultiplyVec2Vec2:
+                case NodeTypes.MultiplyVec2Mat2:
                 case NodeTypes.MultiplyVec3Vec3:
                 case NodeTypes.MultiplyVec4Vec4:
                 case NodeTypes.MultiplyVec4Mat4:
@@ -331,11 +340,19 @@ mat3 GetNormalMatrix(mat4 modelMatrix)
                 case NodeTypes.SubtractVec3Vec3:
                 case NodeTypes.SubtractVec4Vec4:
                     return GenBinaryOperator("-", args);
-                case NodeTypes.MinusFloatFloat:
-                case NodeTypes.MinusVec2Vec2:
-                case NodeTypes.MinusVec3Vec3:
-                case NodeTypes.MinusVec4Vec4:
+                case NodeTypes.MinusFloat:
+                case NodeTypes.MinusVec2:
+                case NodeTypes.MinusVec3:
+                case NodeTypes.MinusVec4:
                     return GenUnaryOperator("-", args);
+                case NodeTypes.SaturateFloat:
+                    return "clamp(" + args[0] + ", 0.0, 1.0)";
+                case NodeTypes.SaturateVec2:
+                    return "clamp(" + args[0] + ", vec2(0.0, 0.0), vec2(1.0, 1.0))";
+                case NodeTypes.SaturateVec3:
+                    return "clamp(" + args[0] + ", vec3(0.0, 0.0, 0.0), vec3(1.0, 1.0, 1.0))";
+                case NodeTypes.SaturateVec4:
+                    return "clamp(" + args[0] + ", vec4(0.0, 0.0, 0.0, 0.0), vec4(1.0, 1.0, 1.0, 1.0))";
                 case NodeTypes.DivideFloatFloat:
                 case NodeTypes.DivideVec2Float:
                 case NodeTypes.DivideVec3Float:
@@ -359,6 +376,7 @@ mat3 GetNormalMatrix(mat4 modelMatrix)
                 case NodeTypes.MakeVec2:
                 case NodeTypes.MakeVec3:
                 case NodeTypes.MakeVec4:
+                case NodeTypes.MakeMat2:
                 case NodeTypes.MakeMat3FromVec3Vec3Vec3:
                     return node.OutputPins[0].Type + "(" + string.Join(", ", args) + ")";
                 case NodeTypes.MakeMat3FromMat4:

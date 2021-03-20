@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls.Primitives;
 using Urho3DMaterialEditor.Model;
 using Urho3DMaterialEditor.ViewModels;
 using Application = Urho.Application;
@@ -56,6 +58,16 @@ namespace Urho3DMaterialEditor
         private void ShowError(Exception exception)
         {
             MessageBox.Show(exception.Message, "Urho Exception", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+
+        private void ToggleButton_Click(object sender, RoutedEventArgs e) {
+            bool? isT = (sender as ToggleButton).IsChecked;
+            if (isT==true) rowSh.Height = new GridLength(rowMn.ActualHeight/2); else rowSh.Height = new GridLength(0);
+        }
+
+        private void rowMn_SizeChanged(object sender, SizeChangedEventArgs e) {
+            _viewModel.screenWidth = rowMn.ActualWidth-50;
+            _viewModel.screenHeght = rowMn.ActualHeight-50;
         }
     }
 }

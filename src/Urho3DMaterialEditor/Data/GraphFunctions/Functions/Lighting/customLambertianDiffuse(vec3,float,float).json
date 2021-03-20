@@ -10,7 +10,7 @@
   "Nodes": [
     {
       "Type": "connect(vec3)",
-      "Name": "worldPosition",
+      "Name": "diffuseColor",
       "Value": null,
       "GroupId": 0,
       "Category": 7,
@@ -32,16 +32,22 @@
       "Id": 1
     },
     {
-      "Type": "uniform(vec3)",
-      "Name": "CameraPos",
+      "Type": "connect(float)",
+      "Name": "NdotV",
       "Value": null,
       "GroupId": 0,
-      "Category": 5,
-      "InputPins": [],
+      "Category": 7,
+      "InputPins": [
+        {
+          "Connection": null,
+          "Id": "",
+          "Type": "float"
+        }
+      ],
       "OutputPins": [
         {
           "Id": "",
-          "Type": "vec3"
+          "Type": "float"
         }
       ],
       "EnterPins": [],
@@ -49,33 +55,22 @@
       "Id": 2
     },
     {
-      "Type": "vec3-vec3",
-      "Name": "vec3-vec3",
+      "Type": "connect(float)",
+      "Name": "roughness",
       "Value": null,
       "GroupId": 0,
-      "Category": 1,
+      "Category": 7,
       "InputPins": [
         {
-          "Connection": {
-            "NodeId": 2,
-            "PinId": ""
-          },
-          "Id": "x",
-          "Type": "vec3"
-        },
-        {
-          "Connection": {
-            "NodeId": 1,
-            "PinId": ""
-          },
-          "Id": "y",
-          "Type": "vec3"
+          "Connection": null,
+          "Id": "",
+          "Type": "float"
         }
       ],
       "OutputPins": [
         {
           "Id": "",
-          "Type": "vec3"
+          "Type": "float"
         }
       ],
       "EnterPins": [],
@@ -83,19 +78,27 @@
       "Id": 3
     },
     {
-      "Type": "perPixelVec3",
-      "Name": "per pixel vec3",
+      "Type": "vec3*float",
+      "Name": "vec3*float",
       "Value": null,
       "GroupId": 0,
       "Category": 1,
       "InputPins": [
         {
           "Connection": {
-            "NodeId": 3,
+            "NodeId": 1,
             "PinId": ""
           },
           "Id": "x",
           "Type": "vec3"
+        },
+        {
+          "Connection": {
+            "NodeId": 5,
+            "PinId": ""
+          },
+          "Id": "y",
+          "Type": "float"
         }
       ],
       "OutputPins": [
@@ -109,25 +112,33 @@
       "Id": 4
     },
     {
-      "Type": "normalize(vec3)",
-      "Name": "normalize(vec3)",
+      "Type": "float*float",
+      "Name": "float*float",
       "Value": null,
       "GroupId": 0,
       "Category": 1,
       "InputPins": [
         {
           "Connection": {
-            "NodeId": 4,
+            "NodeId": 7,
             "PinId": ""
           },
           "Id": "x",
-          "Type": "vec3"
+          "Type": "float"
+        },
+        {
+          "Connection": {
+            "NodeId": 6,
+            "PinId": ""
+          },
+          "Id": "y",
+          "Type": "float"
         }
       ],
       "OutputPins": [
         {
           "Id": "",
-          "Type": "vec3"
+          "Type": "float"
         }
       ],
       "EnterPins": [],
@@ -135,19 +146,70 @@
       "Id": 5
     },
     {
-      "Type": "dot(vec3,vec3)",
-      "Name": "dot(vec3,vec3)",
+      "Type": "float",
+      "Name": "float",
+      "Value": "0.31830988618379067153776752674503",
+      "GroupId": 0,
+      "Category": 6,
+      "InputPins": [],
+      "OutputPins": [
+        {
+          "Id": "",
+          "Type": "float"
+        }
+      ],
+      "EnterPins": [],
+      "ExitPins": [],
+      "Id": 6
+    },
+    {
+      "Type": "pow(float,float)",
+      "Name": "pow(float,float)",
       "Value": null,
       "GroupId": 0,
       "Category": 1,
       "InputPins": [
         {
           "Connection": {
-            "NodeId": 5,
+            "NodeId": 2,
             "PinId": ""
           },
           "Id": "x",
-          "Type": "vec3"
+          "Type": "float"
+        },
+        {
+          "Connection": {
+            "NodeId": 9,
+            "PinId": ""
+          },
+          "Id": "y",
+          "Type": "float"
+        }
+      ],
+      "OutputPins": [
+        {
+          "Id": "",
+          "Type": "float"
+        }
+      ],
+      "EnterPins": [],
+      "ExitPins": [],
+      "Id": 7
+    },
+    {
+      "Type": "float*float",
+      "Name": "float*float",
+      "Value": null,
+      "GroupId": 0,
+      "Category": 1,
+      "InputPins": [
+        {
+          "Connection": {
+            "NodeId": 3,
+            "PinId": ""
+          },
+          "Id": "x",
+          "Type": "float"
         },
         {
           "Connection": {
@@ -155,7 +217,41 @@
             "PinId": ""
           },
           "Id": "y",
-          "Type": "vec3"
+          "Type": "float"
+        }
+      ],
+      "OutputPins": [
+        {
+          "Id": "",
+          "Type": "float"
+        }
+      ],
+      "EnterPins": [],
+      "ExitPins": [],
+      "Id": 8
+    },
+    {
+      "Type": "float+float",
+      "Name": "float+float",
+      "Value": null,
+      "GroupId": 0,
+      "Category": 1,
+      "InputPins": [
+        {
+          "Connection": {
+            "NodeId": 8,
+            "PinId": ""
+          },
+          "Id": "x",
+          "Type": "float"
+        },
+        {
+          "Connection": {
+            "NodeId": 11,
+            "PinId": ""
+          },
+          "Id": "y",
+          "Type": "float"
         }
       ],
       "OutputPins": [
@@ -169,22 +265,16 @@
       "Id": 9
     },
     {
-      "Type": "connect(vec3)",
-      "Name": "perPixelNormal",
-      "Value": null,
+      "Type": "float",
+      "Name": "float",
+      "Value": "0.3",
       "GroupId": 0,
-      "Category": 7,
-      "InputPins": [
-        {
-          "Connection": null,
-          "Id": "",
-          "Type": "vec3"
-        }
-      ],
+      "Category": 6,
+      "InputPins": [],
       "OutputPins": [
         {
           "Id": "",
-          "Type": "vec3"
+          "Type": "float"
         }
       ],
       "EnterPins": [],
@@ -192,29 +282,12 @@
       "Id": 10
     },
     {
-      "Type": "pow(float,float)",
-      "Name": "pow(float,float)",
-      "Value": null,
+      "Type": "float",
+      "Name": "float",
+      "Value": "0.5",
       "GroupId": 0,
-      "Category": 1,
-      "InputPins": [
-        {
-          "Connection": {
-            "NodeId": 17,
-            "PinId": ""
-          },
-          "Id": "x",
-          "Type": "float"
-        },
-        {
-          "Connection": {
-            "NodeId": 14,
-            "PinId": ""
-          },
-          "Id": "y",
-          "Type": "float"
-        }
-      ],
+      "Category": 6,
+      "InputPins": [],
       "OutputPins": [
         {
           "Id": "",
@@ -223,33 +296,10 @@
       ],
       "EnterPins": [],
       "ExitPins": [],
-      "Id": 13
+      "Id": 11
     },
     {
-      "Type": "connect(float)",
-      "Name": "fresnelPower",
-      "Value": null,
-      "GroupId": 0,
-      "Category": 7,
-      "InputPins": [
-        {
-          "Connection": null,
-          "Id": "",
-          "Type": "float"
-        }
-      ],
-      "OutputPins": [
-        {
-          "Id": "",
-          "Type": "float"
-        }
-      ],
-      "EnterPins": [],
-      "ExitPins": [],
-      "Id": 14
-    },
-    {
-      "Type": "connect(float)",
+      "Type": "connect(vec3)",
       "Name": "",
       "Value": null,
       "GroupId": 0,
@@ -257,74 +307,22 @@
       "InputPins": [
         {
           "Connection": {
-            "NodeId": 13,
+            "NodeId": 4,
             "PinId": ""
           },
           "Id": "",
-          "Type": "float"
+          "Type": "vec3"
         }
       ],
       "OutputPins": [
         {
           "Id": "",
-          "Type": "float"
+          "Type": "vec3"
         }
       ],
       "EnterPins": [],
       "ExitPins": [],
-      "Id": 15
-    },
-    {
-      "Type": "saturate(float)",
-      "Name": "saturate(float)",
-      "Value": null,
-      "GroupId": 0,
-      "Category": 1,
-      "InputPins": [
-        {
-          "Connection": {
-            "NodeId": 9,
-            "PinId": ""
-          },
-          "Id": "x",
-          "Type": "float"
-        }
-      ],
-      "OutputPins": [
-        {
-          "Id": "",
-          "Type": "float"
-        }
-      ],
-      "EnterPins": [],
-      "ExitPins": [],
-      "Id": 16
-    },
-    {
-      "Type": "1-float",
-      "Name": "1-float",
-      "Value": null,
-      "GroupId": 0,
-      "Category": 1,
-      "InputPins": [
-        {
-          "Connection": {
-            "NodeId": 16,
-            "PinId": ""
-          },
-          "Id": "x",
-          "Type": "float"
-        }
-      ],
-      "OutputPins": [
-        {
-          "Id": "",
-          "Type": "float"
-        }
-      ],
-      "EnterPins": [],
-      "ExitPins": [],
-      "Id": 17
+      "Id": 12
     }
   ],
   "Groups": [],
@@ -332,87 +330,87 @@
     "Nodes": [
       {
         "NodeId": 1,
-        "X": 909.377563,
-        "Y": 73.66626,
-        "Width": 232.18,
+        "X": 2425.341,
+        "Y": 371.4598,
+        "Width": 223.42,
         "Height": 37.96
       },
       {
         "NodeId": 2,
-        "X": 994.3376,
-        "Y": -103.453735,
-        "Width": 152.293335,
-        "Height": 108.0
+        "X": 2196.381,
+        "Y": 446.3398,
+        "Width": 190.92,
+        "Height": 37.96
       },
       {
         "NodeId": 3,
-        "X": 1286.65759,
-        "Y": 56.38626,
-        "Width": 139.936661,
-        "Height": 108.0
+        "X": 2177.66113,
+        "Y": 508.2598,
+        "Width": 212.293335,
+        "Height": 37.96
       },
       {
         "NodeId": 4,
-        "X": 1508.4176,
-        "Y": 142.786255,
-        "Width": 162.05,
+        "X": 3145.341,
+        "Y": 312.41983,
+        "Width": 141.416672,
         "Height": 108.0
       },
       {
         "NodeId": 5,
-        "X": 1779.13757,
-        "Y": 207.586258,
-        "Width": 174.32,
+        "X": 3017.181,
+        "Y": 437.6998,
+        "Width": 142.286667,
         "Height": 108.0
       },
       {
-        "NodeId": 9,
-        "X": 2019.90552,
-        "Y": 314.72226,
-        "Width": 166.636673,
+        "NodeId": 6,
+        "X": 2628.381,
+        "Y": 740.0998,
+        "Width": 306.11,
         "Height": 108.0
       },
       {
-        "NodeId": 10,
-        "X": 1066.33752,
-        "Y": 268.066254,
-        "Width": 242.303329,
-        "Height": 37.96
-      },
-      {
-        "NodeId": 13,
-        "X": 2591.29761,
-        "Y": 371.746246,
+        "NodeId": 7,
+        "X": 2782.461,
+        "Y": 416.099823,
         "Width": 173.286667,
         "Height": 108.0
       },
       {
-        "NodeId": 14,
-        "X": 2222.65747,
-        "Y": 665.5063,
-        "Width": 227.396667,
-        "Height": 37.96
+        "NodeId": 8,
+        "X": 2544.861,
+        "Y": 565.8598,
+        "Width": 142.286667,
+        "Height": 108.0
       },
       {
-        "NodeId": 15,
-        "X": 2873.5376,
-        "Y": 439.42627,
+        "NodeId": 9,
+        "X": 2769.501,
+        "Y": 611.9398,
+        "Width": 145.31,
+        "Height": 108.0
+      },
+      {
+        "NodeId": 10,
+        "X": 2206.461,
+        "Y": 568.7398,
+        "Width": 184.0,
+        "Height": 108.0
+      },
+      {
+        "NodeId": 11,
+        "X": 2301.501,
+        "Y": 714.1798,
+        "Width": 184.0,
+        "Height": 108.0
+      },
+      {
+        "NodeId": 12,
+        "X": 3387.261,
+        "Y": 382.979828,
         "Width": 172.0,
         "Height": 37.96
-      },
-      {
-        "NodeId": 16,
-        "X": 2223.00928,
-        "Y": 181.2345,
-        "Width": 165.29,
-        "Height": 108.0
-      },
-      {
-        "NodeId": 17,
-        "X": 2385.44141,
-        "Y": 359.218475,
-        "Width": 122.166664,
-        "Height": 108.0
       }
     ]
   }

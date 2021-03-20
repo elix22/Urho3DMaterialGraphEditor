@@ -80,6 +80,7 @@ namespace Urho3DMaterialEditor.Model.TranslationPasses
                     case NodeTypes.MultiplyVec3Float:
                     case NodeTypes.MultiplyVec4Float:
                     case NodeTypes.MultiplyVec2Vec2:
+                    case NodeTypes.MultiplyVec2Mat2:
                     case NodeTypes.MultiplyVec3Vec3:
                     case NodeTypes.MultiplyVec4Vec4:
                     case NodeTypes.MultiplyVec4Mat4:
@@ -90,7 +91,29 @@ namespace Urho3DMaterialEditor.Model.TranslationPasses
                     case NodeTypes.MultiplyVec4Mat4x3:
                         OptimizeMultiply(nodeHelper);
                         break;
-                }
+                    case NodeTypes.BreakVec2:
+                    case NodeTypes.BreakVec3:
+                    case NodeTypes.BreakVec4:
+                    case NodeTypes.BreakVec4ToVec3AndFloat:
+                    case NodeTypes.BreakVec3ToVec2AndFloat:
+                    case NodeTypes.BreakVec4ToVec2AndVec2:
+                    case NodeTypes.BreakVec4ToVec2AndFloats:
+                        OptimizeMultiply(nodeHelper);
+                        break;
+                    case NodeTypes.AddFloatFloat:
+                    case NodeTypes.AddVec2Vec2:
+                    case NodeTypes.AddVec3Vec3:
+                    case NodeTypes.AddVec4Vec4:
+                    case NodeTypes.AddMat4Mat4:
+                    case NodeTypes.AddMat4x3Mat4x3:
+                        OptimizeAdd(nodeHelper);
+                        break;
+            }
+        }
+
+        private void OptimizeAdd(NodeHelper nodeHelper)
+        {
+            //TODO: Optimize +
         }
 
         private void OptimizeMultiply(NodeHelper nodeHelper)

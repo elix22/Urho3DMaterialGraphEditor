@@ -10,7 +10,7 @@
   "Nodes": [
     {
       "Type": "connect(float)",
-      "Name": "depth",
+      "Name": "NdotL",
       "Value": null,
       "GroupId": 0,
       "Category": 7,
@@ -33,16 +33,13 @@
     },
     {
       "Type": "connect(float)",
-      "Name": "",
+      "Name": "NdotV",
       "Value": null,
       "GroupId": 0,
       "Category": 7,
       "InputPins": [
         {
-          "Connection": {
-            "NodeId": 10,
-            "PinId": ""
-          },
+          "Connection": null,
           "Id": "",
           "Type": "float"
         }
@@ -58,16 +55,48 @@
       "Id": 2
     },
     {
-      "Type": "uniform(vec4)",
-      "Name": "FogParams",
+      "Type": "connect(float)",
+      "Name": "roughness",
       "Value": null,
       "GroupId": 0,
-      "Category": 5,
-      "InputPins": [],
+      "Category": 7,
+      "InputPins": [
+        {
+          "Connection": null,
+          "Id": "",
+          "Type": "float"
+        }
+      ],
       "OutputPins": [
         {
           "Id": "",
-          "Type": "vec4"
+          "Type": "float"
+        }
+      ],
+      "EnterPins": [],
+      "ExitPins": [],
+      "Id": 3
+    },
+    {
+      "Type": "connect(float)",
+      "Name": "",
+      "Value": null,
+      "GroupId": 0,
+      "Category": 7,
+      "InputPins": [
+        {
+          "Connection": {
+            "NodeId": 7,
+            "PinId": ""
+          },
+          "Id": "",
+          "Type": "float"
+        }
+      ],
+      "OutputPins": [
+        {
+          "Id": "",
+          "Type": "float"
         }
       ],
       "EnterPins": [],
@@ -75,53 +104,100 @@
       "Id": 4
     },
     {
-      "Type": "breakVec4",
-      "Name": "break vec4",
+      "Type": "float/float",
+      "Name": "float/float",
       "Value": null,
       "GroupId": 0,
       "Category": 1,
       "InputPins": [
         {
           "Connection": {
-            "NodeId": 4,
+            "NodeId": 8,
             "PinId": ""
           },
-          "Id": "value",
-          "Type": "vec4"
+          "Id": "x",
+          "Type": "float"
+        },
+        {
+          "Connection": {
+            "NodeId": 9,
+            "PinId": ""
+          },
+          "Id": "y",
+          "Type": "float"
         }
       ],
       "OutputPins": [
         {
-          "Id": "X",
-          "Type": "float"
-        },
-        {
-          "Id": "Y",
-          "Type": "float"
-        },
-        {
-          "Id": "Z",
-          "Type": "float"
-        },
-        {
-          "Id": "W",
+          "Id": "",
           "Type": "float"
         }
       ],
       "EnterPins": [],
       "ExitPins": [],
-      "Id": 5
+      "Id": 7
     },
     {
-      "Type": "min(float,float)",
-      "Name": "min(float,float)",
+      "Type": "float*float",
+      "Name": "float*float",
       "Value": null,
       "GroupId": 0,
       "Category": 1,
       "InputPins": [
         {
           "Connection": {
-            "NodeId": 16,
+            "NodeId": 3,
+            "PinId": ""
+          },
+          "Id": "x",
+          "Type": "float"
+        },
+        {
+          "Connection": {
+            "NodeId": 3,
+            "PinId": ""
+          },
+          "Id": "y",
+          "Type": "float"
+        }
+      ],
+      "OutputPins": [
+        {
+          "Id": "",
+          "Type": "float"
+        }
+      ],
+      "EnterPins": [],
+      "ExitPins": [],
+      "Id": 6
+    },
+    {
+      "Type": "float",
+      "Name": "float",
+      "Value": "0.5",
+      "GroupId": 0,
+      "Category": 6,
+      "InputPins": [],
+      "OutputPins": [
+        {
+          "Id": "",
+          "Type": "float"
+        }
+      ],
+      "EnterPins": [],
+      "ExitPins": [],
+      "Id": 8
+    },
+    {
+      "Type": "float+float",
+      "Name": "float+float",
+      "Value": null,
+      "GroupId": 0,
+      "Category": 1,
+      "InputPins": [
+        {
+          "Connection": {
+            "NodeId": 10,
             "PinId": ""
           },
           "Id": "x",
@@ -144,18 +220,29 @@
       ],
       "EnterPins": [],
       "ExitPins": [],
-      "Id": 10
+      "Id": 9
     },
     {
-      "Type": "connect(float)",
-      "Name": "height",
+      "Type": "float*float",
+      "Name": "float*float",
       "Value": null,
       "GroupId": 0,
-      "Category": 7,
+      "Category": 1,
       "InputPins": [
         {
-          "Connection": null,
-          "Id": "",
+          "Connection": {
+            "NodeId": 1,
+            "PinId": ""
+          },
+          "Id": "x",
+          "Type": "float"
+        },
+        {
+          "Connection": {
+            "NodeId": 12,
+            "PinId": ""
+          },
+          "Id": "y",
           "Type": "float"
         }
       ],
@@ -167,21 +254,29 @@
       ],
       "EnterPins": [],
       "ExitPins": [],
-      "Id": 9
+      "Id": 10
     },
     {
-      "Type": "getFogFactor(float)",
-      "Name": "getFogFactor(float)",
+      "Type": "float*float",
+      "Name": "float*float",
       "Value": null,
       "GroupId": 0,
       "Category": 1,
       "InputPins": [
         {
           "Connection": {
-            "NodeId": 1,
+            "NodeId": 2,
             "PinId": ""
           },
-          "Id": "depth",
+          "Id": "x",
+          "Type": "float"
+        },
+        {
+          "Connection": {
+            "NodeId": 13,
+            "PinId": ""
+          },
+          "Id": "y",
           "Type": "float"
         }
       ],
@@ -196,26 +291,18 @@
       "Id": 11
     },
     {
-      "Type": "float-float",
-      "Name": "float-float",
+      "Type": "sqrt(float)",
+      "Name": "sqrt(float)",
       "Value": null,
       "GroupId": 0,
       "Category": 1,
       "InputPins": [
         {
           "Connection": {
-            "NodeId": 9,
+            "NodeId": 17,
             "PinId": ""
           },
           "Id": "x",
-          "Type": "float"
-        },
-        {
-          "Connection": {
-            "NodeId": 5,
-            "PinId": "Z"
-          },
-          "Id": "y",
           "Type": "float"
         }
       ],
@@ -230,26 +317,18 @@
       "Id": 12
     },
     {
-      "Type": "float*float",
-      "Name": "float*float",
+      "Type": "sqrt(float)",
+      "Name": "sqrt(float)",
       "Value": null,
       "GroupId": 0,
       "Category": 1,
       "InputPins": [
         {
           "Connection": {
-            "NodeId": 12,
+            "NodeId": 21,
             "PinId": ""
           },
           "Id": "x",
-          "Type": "float"
-        },
-        {
-          "Connection": {
-            "NodeId": 5,
-            "PinId": "W"
-          },
-          "Id": "y",
           "Type": "float"
         }
       ],
@@ -264,12 +343,29 @@
       "Id": 13
     },
     {
-      "Type": "float",
-      "Name": "float",
-      "Value": "1.0",
+      "Type": "float-float",
+      "Name": "float-float",
+      "Value": null,
       "GroupId": 0,
-      "Category": 6,
-      "InputPins": [],
+      "Category": 1,
+      "InputPins": [
+        {
+          "Connection": {
+            "NodeId": 2,
+            "PinId": ""
+          },
+          "Id": "x",
+          "Type": "float"
+        },
+        {
+          "Connection": {
+            "NodeId": 15,
+            "PinId": ""
+          },
+          "Id": "y",
+          "Type": "float"
+        }
+      ],
       "OutputPins": [
         {
           "Id": "",
@@ -281,8 +377,42 @@
       "Id": 14
     },
     {
-      "Type": "float-float",
-      "Name": "float-float",
+      "Type": "float*float",
+      "Name": "float*float",
+      "Value": null,
+      "GroupId": 0,
+      "Category": 1,
+      "InputPins": [
+        {
+          "Connection": {
+            "NodeId": 2,
+            "PinId": ""
+          },
+          "Id": "x",
+          "Type": "float"
+        },
+        {
+          "Connection": {
+            "NodeId": 6,
+            "PinId": ""
+          },
+          "Id": "y",
+          "Type": "float"
+        }
+      ],
+      "OutputPins": [
+        {
+          "Id": "",
+          "Type": "float"
+        }
+      ],
+      "EnterPins": [],
+      "ExitPins": [],
+      "Id": 15
+    },
+    {
+      "Type": "float*float",
+      "Name": "float*float",
       "Value": null,
       "GroupId": 0,
       "Category": 1,
@@ -297,7 +427,7 @@
         },
         {
           "Connection": {
-            "NodeId": 21,
+            "NodeId": 2,
             "PinId": ""
           },
           "Id": "y",
@@ -315,18 +445,60 @@
       "Id": 16
     },
     {
-      "Type": "exp(float)",
-      "Name": "exp(float)",
+      "Type": "float+float",
+      "Name": "float+float",
       "Value": null,
       "GroupId": 0,
       "Category": 1,
       "InputPins": [
         {
           "Connection": {
-            "NodeId": 19,
+            "NodeId": 16,
             "PinId": ""
           },
           "Id": "x",
+          "Type": "float"
+        },
+        {
+          "Connection": {
+            "NodeId": 6,
+            "PinId": ""
+          },
+          "Id": "y",
+          "Type": "float"
+        }
+      ],
+      "OutputPins": [
+        {
+          "Id": "",
+          "Type": "float"
+        }
+      ],
+      "EnterPins": [],
+      "ExitPins": [],
+      "Id": 17
+    },
+    {
+      "Type": "float-float",
+      "Name": "float-float",
+      "Value": null,
+      "GroupId": 0,
+      "Category": 1,
+      "InputPins": [
+        {
+          "Connection": {
+            "NodeId": 1,
+            "PinId": ""
+          },
+          "Id": "x",
+          "Type": "float"
+        },
+        {
+          "Connection": {
+            "NodeId": 19,
+            "PinId": ""
+          },
+          "Id": "y",
           "Type": "float"
         }
       ],
@@ -341,20 +513,23 @@
       "Id": 18
     },
     {
-      "Type": "float-float",
-      "Name": "float-float",
+      "Type": "float*float",
+      "Name": "float*float",
       "Value": null,
       "GroupId": 0,
       "Category": 1,
       "InputPins": [
         {
-          "Connection": null,
+          "Connection": {
+            "NodeId": 1,
+            "PinId": ""
+          },
           "Id": "x",
           "Type": "float"
         },
         {
           "Connection": {
-            "NodeId": 20,
+            "NodeId": 6,
             "PinId": ""
           },
           "Id": "y",
@@ -380,7 +555,7 @@
       "InputPins": [
         {
           "Connection": {
-            "NodeId": 13,
+            "NodeId": 18,
             "PinId": ""
           },
           "Id": "x",
@@ -388,7 +563,7 @@
         },
         {
           "Connection": {
-            "NodeId": 13,
+            "NodeId": 1,
             "PinId": ""
           },
           "Id": "y",
@@ -406,18 +581,26 @@
       "Id": 20
     },
     {
-      "Type": "saturate(float)",
-      "Name": "saturate(float)",
+      "Type": "float+float",
+      "Name": "float+float",
       "Value": null,
       "GroupId": 0,
       "Category": 1,
       "InputPins": [
         {
           "Connection": {
-            "NodeId": 18,
+            "NodeId": 20,
             "PinId": ""
           },
           "Id": "x",
+          "Type": "float"
+        },
+        {
+          "Connection": {
+            "NodeId": 6,
+            "PinId": ""
+          },
+          "Id": "y",
           "Type": "float"
         }
       ],
@@ -437,107 +620,142 @@
     "Nodes": [
       {
         "NodeId": 1,
-        "X": 1418.98413,
-        "Y": 886.568054,
-        "Width": 187.256668,
+        "X": 1333.76013,
+        "Y": 552.279968,
+        "Width": 189.05,
         "Height": 37.96
       },
       {
         "NodeId": 2,
-        "X": 2297.53613,
-        "Y": 437.688019,
-        "Width": 172.0,
+        "X": 1262.64014,
+        "Y": 655.72,
+        "Width": 190.92,
+        "Height": 37.96
+      },
+      {
+        "NodeId": 3,
+        "X": 1217.31348,
+        "Y": 1037.7,
+        "Width": 212.293335,
         "Height": 37.96
       },
       {
         "NodeId": 4,
-        "X": -141.0,
-        "Y": 285.04,
-        "Width": 152.043335,
-        "Height": 108.0
-      },
-      {
-        "NodeId": 5,
-        "X": 99.0,
-        "Y": 309.04,
-        "Width": 144.683334,
-        "Height": 117.84
-      },
-      {
-        "NodeId": 10,
-        "X": 2087.81616,
-        "Y": 547.384033,
-        "Width": 170.603333,
-        "Height": 108.0
-      },
-      {
-        "NodeId": 9,
-        "X": -61.0,
-        "Y": 605.04,
-        "Width": 190.45,
+        "X": 3328.33325,
+        "Y": 707.54,
+        "Width": 172.0,
         "Height": 37.96
       },
       {
-        "NodeId": 11,
-        "X": 1750.40015,
-        "Y": 863.208,
-        "Width": 193.71,
+        "NodeId": 7,
+        "X": 3141.70337,
+        "Y": 675.6884,
+        "Width": 142.146667,
         "Height": 108.0
       },
       {
-        "NodeId": 12,
-        "X": 349.0,
-        "Y": 704.04,
-        "Width": 141.676666,
-        "Height": 108.0
-      },
-      {
-        "NodeId": 13,
-        "X": 568.0,
-        "Y": 642.04,
+        "NodeId": 6,
+        "X": 1490.16357,
+        "Y": 1083.84839,
         "Width": 142.286667,
         "Height": 108.0
       },
       {
-        "NodeId": 14,
-        "X": 1493.46411,
-        "Y": 549.279968,
+        "NodeId": 8,
+        "X": 3013.37,
+        "Y": 512.3551,
         "Width": 184.0,
         "Height": 108.0
       },
       {
-        "NodeId": 16,
-        "X": 1870.13611,
-        "Y": 600.464,
+        "NodeId": 9,
+        "X": 2940.03662,
+        "Y": 738.1884,
+        "Width": 145.31,
+        "Height": 108.0
+      },
+      {
+        "NodeId": 10,
+        "X": 2769.20337,
+        "Y": 608.1884,
+        "Width": 142.286667,
+        "Height": 108.0
+      },
+      {
+        "NodeId": 11,
+        "X": 2790.03687,
+        "Y": 869.0217,
+        "Width": 142.286667,
+        "Height": 108.0
+      },
+      {
+        "NodeId": 12,
+        "X": 2601.70337,
+        "Y": 973.188354,
+        "Width": 141.773331,
+        "Height": 108.0
+      },
+      {
+        "NodeId": 13,
+        "X": 2600.87,
+        "Y": 1100.68835,
+        "Width": 141.773331,
+        "Height": 108.0
+      },
+      {
+        "NodeId": 14,
+        "X": 1920.03687,
+        "Y": 980.2017,
         "Width": 141.676666,
+        "Height": 108.0
+      },
+      {
+        "NodeId": 15,
+        "X": 1708.35022,
+        "Y": 990.9417,
+        "Width": 142.286667,
+        "Height": 108.0
+      },
+      {
+        "NodeId": 16,
+        "X": 2132.62354,
+        "Y": 987.568359,
+        "Width": 142.286667,
+        "Height": 108.0
+      },
+      {
+        "NodeId": 17,
+        "X": 2366.557,
+        "Y": 983.695,
+        "Width": 145.31,
         "Height": 108.0
       },
       {
         "NodeId": 18,
-        "X": 1293.7041,
-        "Y": 721.519958,
-        "Width": 139.833328,
-        "Height": 108.0
-      },
-      {
-        "NodeId": 19,
-        "X": 1079.46411,
-        "Y": 767.279968,
+        "X": 1907.59033,
+        "Y": 1176.78833,
         "Width": 141.676666,
         "Height": 108.0
       },
       {
+        "NodeId": 19,
+        "X": 1695.90356,
+        "Y": 1187.52832,
+        "Width": 142.286667,
+        "Height": 108.0
+      },
+      {
         "NodeId": 20,
-        "X": 829.064,
-        "Y": 683.079956,
+        "X": 2120.17676,
+        "Y": 1184.155,
         "Width": 142.286667,
         "Height": 108.0
       },
       {
         "NodeId": 21,
-        "X": 1574.92,
-        "Y": 709.4,
-        "Width": 165.29,
+        "X": 2365.63037,
+        "Y": 1187.48169,
+        "Width": 145.31,
         "Height": 108.0
       }
     ]
